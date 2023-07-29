@@ -130,7 +130,7 @@ public class Aluno extends Pessoa { /* Chamando a herança */
 
 		/* Percorrendo as disciplinas com foreach */
 		for (Disciplina disciplina : disciplinas) {
-			somaNotas += disciplina.getNota();
+			somaNotas += disciplina.getMediaNotas();
 		}
 
 		return somaNotas / disciplinas.size(); // retorna quantas disciplinas tem na lista
