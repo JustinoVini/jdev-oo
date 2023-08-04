@@ -29,7 +29,28 @@ public class VetoresMain {
 		
 		aluno.getDisciplinas().add(disciplina2);
 		
+		//----------------------------------------------------
+		Aluno[] arrayAlunos = new Aluno[1];
+		
+		arrayAlunos[0] = aluno;
+		
+		for (int pos = 0; pos < arrayAlunos.length; pos++) {
 			
+			System.out.println("Nome do aluno é: " + arrayAlunos[pos].getNome());
+			
+			for (Disciplina disc : arrayAlunos[pos].getDisciplinas()) {
+				
+				System.out.println("Nome da disciplina é: " + disc.getDisciplina());
+				
+				for (int posNota = 0; posNota < disc.getNota().length; posNota++) {
+					
+					System.out.println("A nota número : " + posNota + "é igual = " + disc.getNota()[posNota]);
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 	
