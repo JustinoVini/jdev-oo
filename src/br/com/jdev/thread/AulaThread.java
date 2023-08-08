@@ -7,7 +7,7 @@ public class AulaThread {
 	public static void main(String[] args) throws InterruptedException {
 		
 		
-		/*Criando uma thread*/
+		/*Criando uma thread thread 1 - envio de email*/
 		new Thread() { 
 			
 			public void run() { /*Executa a rotina*/
@@ -21,6 +21,31 @@ public class AulaThread {
 					
 					try {
 						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				/*Fim da rotina*/
+			};
+			
+		}.start(); /*liga a thread*/
+		
+		/*===================================================================*/
+		
+		/*Criando uma thread thread 2 - envio de NFE*/
+		new Thread() { 
+			
+			public void run() { /*Executa a rotina*/
+				/*Aqui dentro escrevemos a rotina do thread*/
+				/*Gerando uma rotina de thread para execução*/
+				for (int pos = 0; pos < 10; pos++) {
+					
+					// Thread.sleep(1000); /*Passando um tempo para executar o print*/
+					/*Executando essa linha abaixo com tempo de parada*/
+					System.out.println("Executando alguma rotina 2");
+					
+					try {
+						Thread.sleep(2000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
