@@ -13,29 +13,41 @@ public class ImplementacaoFilaThread extends Thread {
 
 	@Override
 	public void run() {
-		Iterator iteracao = pilha_fila.iterator();
 
-		synchronized (iteracao) { /*Bloquear o acesso a esta lista por outros processos*/
+		System.out.println("Fila rodando");
 
-			while (iteracao.hasNext()) { /* Enquanto conter dados na lista irá processar */
+		while (true) {
 
-				ObjetoFilaThread processar = (ObjetoFilaThread) iteracao.next();
+			synchronized (pilha_fila) { /* Bloquear o acesso a esta lista por outros processos */
 
-				/* Processar 10 mil NFE */
-				iteracao.remove();
+				Iterator iteracao = pilha_fila.iterator();
+				while (iteracao.hasNext()) { /* Enquanto conter dados na lista irá processar */
 
-				try {
-					Thread.sleep(100); /* Dar um tempo pra descarga de memoria */
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					ObjetoFilaThread processar = (ObjetoFilaThread) iteracao.next();
+					
+					System.out.println("--------------------------------");
+					
+					System.out.println(processar.getEmail());
+					System.out.println(processar.getNome());
+
+					/* Processar 10 mil NFE */
+					iteracao.remove();
+
+					try {
+						Thread.sleep(100); /* Dar um tempo pra descarga de memoria */
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
+			}
+
+			try {
+				Thread.sleep(1000); /* Ao processar toda a lista da um tempo para a limpeza de memoria */
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 
-		try {
-			Thread.sleep(1000); /* Ao processar toda a lista da um tempo para a limpeza de memoria */
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
+
 }
