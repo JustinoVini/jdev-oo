@@ -30,7 +30,7 @@ public class TelaThread extends JDialog {
 
 	private JButton jButton = new JButton("Add lista");
 	private JButton jButton2 = new JButton("Stop");
-	
+
 	private ImplementacaoFilaThread fila = new ImplementacaoFilaThread();
 
 	public TelaThread() { /* Vai executar o que tiver dentro da abertura da execução */
@@ -51,7 +51,7 @@ public class TelaThread extends JDialog {
 		jPanel.add(descricaoHora, gridBagConstraints);
 
 		mostraTempo.setPreferredSize(new Dimension(200, 25));
-		//mostraTempo.setEditable(false);
+		// mostraTempo.setEditable(false);
 		gridBagConstraints.gridy++; /* Pulando o tamanho na lista */
 		jPanel.add(mostraTempo, gridBagConstraints);
 
@@ -60,7 +60,7 @@ public class TelaThread extends JDialog {
 		jPanel.add(descricaoHora2, gridBagConstraints);
 
 		mostraTempo2.setPreferredSize(new Dimension(200, 25));
-		//mostraTempo2.setEditable(false);
+		// mostraTempo2.setEditable(false);
 		gridBagConstraints.gridy++; /* Pulando o tamanho na lista */
 		jPanel.add(mostraTempo2, gridBagConstraints);
 
@@ -79,11 +79,19 @@ public class TelaThread extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) { /* Executa o click do botao */
 
-				ObjetoFilaThread filaThread = new ObjetoFilaThread();
-				filaThread.setNome(mostraTempo.getText());
-				filaThread.setEmail(mostraTempo2.getText());
-				
-				fila.adiciona(filaThread);
+				if (fila == null) {
+					fila = new ImplementacaoFilaThread();
+					fila.start();
+				}
+
+				for (int qtd = 0; qtd < 100; qtd++) { /* Simulando 100 envios em massa */
+
+					ObjetoFilaThread filaThread = new ObjetoFilaThread();
+					filaThread.setNome(mostraTempo.getText());
+					filaThread.setEmail(mostraTempo2.getText() + " - " + qtd);
+
+					fila.adiciona(filaThread);
+				}
 			}
 		});
 
@@ -92,11 +100,14 @@ public class TelaThread extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) { /* Executa o click do botao */
 
+				fila.stop();
+				fila = null;
+
 			}
 		});
 
 		fila.start();
-		
+
 		add(jPanel, BorderLayout.WEST);
 
 		setVisible(true);
